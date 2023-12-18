@@ -1,0 +1,56 @@
+@page "/ShoppingCart"
+@using SynthMania.Models
+@inject NavigationManager NavigationManager;
+@inject ShoppingCartState ShoppingCartState;
+
+@if (ShoppingCartState.Count == 0)
+{
+    <div class="row justify-content-center">
+        <div class="col-12 text-center pb-3">
+            <h1>Your shoppingcart is empty</h1>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <button class="btn btn-primary w-100" @onclick="NavigateToHome">Return to home</button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <CartList/>
+        </div>
+        <div class="col-12"></div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <button class="btn btn-primary w-100" @onclick="NavigateToCheckout">Proceed to checkout</button>
+
+        </div>
+    </div>
+}
+
+@code{
+
+    private void NavigateToCheckout()
+    {
+        NavigationManager.NavigateTo("/checkout");
+    }
+
+    private void NavigateToHome()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+    private void OnCartChanged(object sender, CartChangedEventArgs e)
+    {
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        ShoppingCartState.CartChanged += OnCartChanged;
+    }
+
+}
+
+

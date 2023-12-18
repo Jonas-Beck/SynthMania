@@ -1,0 +1,68 @@
+@using SynthMania.Models;
+<h4 class="mb-3">Billing address</h4>
+@* <EditForm Model="@Model"> *@
+	<div class="row g-3">
+		<div class="col-sm-6">
+			<label for="firstName" class="form-label">First name</label>
+			<InputText @bind-Value=Model.FirstName class="form-control"  id="firstName"/>
+			<div class="invalid-feedback">
+				Valid first name is required.
+				<ValidationMessage For=@(() => Model.FirstName)/>
+			</div>
+		</div>
+
+		<div class="col-sm-6">
+			<label for="lastName" class="form-label">Last name</label>
+			<InputText @bind-Value=Model.LastName class="form-control" id="lastName"/>
+			<div class="invalid-feedback">
+				Valid last name is required.
+			</div>
+		</div>
+		<div class="col-12">
+			<label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
+			<InputText @bind-Value="Model.Email" class="form-control" placeholder="your@email.com" id="email"/>
+		</div>
+
+		<div class="col-12">
+			<label for="address" class="form-label">Address</label>
+			<InputText @bind-Value=Model.Address.AddressName class="form-control" id="address" />
+			<div class="invalid-feedback">
+				Please enter your shipping address.
+			</div>
+		</div>
+
+		<div class="col-md-5">
+			<label for="country" class="form-label">Country</label>
+			<InputText @bind-Value=Model.Address.Country class="form-control" id="country" />
+			<div class="invalid-feedback">
+				Please select a valid country.
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<label for="city" class="form-label">City</label>
+			<InputText @bind-Value=Model.Address.City class="form-control" id="city" />
+			<div class="invalid-feedback">
+				Please provide a valid city.
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<label for="zip" class="form-label">Zip</label>
+			<InputText @bind-Value=Model.Address.Zip class="form-control" id="zip" />
+			<div class="invalid-feedback">
+				Zip code required.
+			</div>
+		</div>
+
+	</div>
+@* </EditForm> *@
+
+@code {
+
+    [Parameter]
+    public Customer Model { get; set; }
+    
+    [Parameter]
+    public EditContext Context { get; set; }
+}

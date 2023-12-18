@@ -1,0 +1,63 @@
+@page "/Products"
+@using SynthMania.Models
+@using SynthMania.Services
+@inject ShoppingCartState ShoppingCartState
+@inject ProductService ProductService
+
+@if (ProductsList != null)
+{
+<div class="row">
+    <div class="col-12 text-center">
+        <h3>Products</h3>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            @foreach (var product in ProductsList)
+            {
+                <div class="col-12 col-sm-6 col-md-4">
+					<div class="card" style="width: 18rem;">
+					  <img src="/images/arturia-microfreak.png" class="card-img-top" alt="...">
+					  <div class="card-body">
+						<h5 class="card-title">@product.Name</h5>
+						<p class="card-text">@product.Description</p>
+                        <p class="card-text">$@product.Price</p>
+						<button class="btn btn-primary w-100" @onclick="() => ShoppingCartState.AddProduct(product)" >Purchase</button>
+					  </div>
+					</div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+    
+}
+
+
+
+@code {
+
+    public IEnumerable<Product>? ProductsList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            ProductsList = await ProductService.GetAllProducts();
+        }
+        catch (Exception e)
+        {
+            ProductsList = new List<Product>
+            {
+                new Product
+                {
+                    Id = 1,
+                    Description = "temp",
+                    ImageName = "MissingImage.jpeg",
+                    Name = "Demo",
+                    Price = 40
+                }
+            };
+        }
+    }
+
+}

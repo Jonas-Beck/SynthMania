@@ -1,0 +1,26 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+
+<div class="row">
+    <div class="col">
+        <h1 class="display-5 fw-bold text-center">Welcome to SynthMania</h1>
+        <div class="col-lg-8 mx-auto pt-1">
+            <p class="lead mb-4 text-center">Unleash sonic brilliance with our curated collection of analog synthesizers. Explore vintage classics and cutting-edge models – each a masterpiece for your musical journey. Elevate your sound at SynthMania. Dive into analog, where creativity knows no bounds.</p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+              <button type="button" @onclick="NavigateToProducts" class="btn btn-primary btn-lg px-4 gap-3">Products</button>
+          </div>
+    </div>
+  
+    </div>
+</div>
+
+@code
+{
+    private void NavigateToProducts()
+    {
+        NavigationManager.NavigateTo("/products");
+    }
+}
+
+
+

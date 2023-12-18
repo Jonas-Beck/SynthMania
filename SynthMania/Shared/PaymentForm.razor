@@ -1,0 +1,56 @@
+@using SynthMania.Models;
+<h4 class="mb-3">Payment</h4>
+<!-- CHANGE TO EDIT-FORM COMPONENT-->
+<EditForm Model="@Model">
+    <div class="my-3">
+        <label class="form-label" for="cc-type">Card Type</label>
+        <InputSelect @bind-Value="Model.PaymentCard.CardType" class="form-select" id="cc-type">
+            @foreach (var type in Enum.GetValues(typeof(PaymentCard.CardTypeEnum)))
+            {
+                <option value="@type">@type</option>
+            }
+        </InputSelect>
+    </div>
+    <div class="row gy-3">
+        <div class="col-md-6">
+            <label for="cc-name" class="form-label">Name on card</label>
+            <InputText @bind-Value="Model.PaymentCard.CardName" class="form-control" id="cc-name" />
+            <!--<input type="text" class="form-control" id="cc-name" placeholder="" required="">-->
+            <small class="text-muted">Full name as displayed on card</small>
+            <div class="invalid-feedback">
+                Name on card is required
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label for="cc-number" class="form-label">Credit card number</label>
+            <InputNumber @bind-Value="Model.PaymentCard.CardNumber" class="form-control" id="cc-number"  />
+            <div class="invalid-feedback">
+                Credit card number is required
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label for="cc-expiration" class="form-label">Expiration</label>
+            <InputText class="form-control" id="cc-expiration" @bind-Value="Model.PaymentCard.ExpirationDate"  />
+            <div class="invalid-feedback">
+                Expiration date required
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label for="cc-cvv" class="form-label">CVV</label>
+            <InputNumber @bind-Value="Model.PaymentCard.CVV" class="form-control" id="cc-cvv" />
+            <div class="invalid-feedback">
+                Security code required
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+
+    // TODO Change to PaymentCard OR Refactor
+    [Parameter]
+    public Customer Model { get; set; }
+}

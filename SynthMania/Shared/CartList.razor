@@ -1,0 +1,26 @@
+@using SynthMania.Models
+@using SynthMania.Pages
+@inject NavigationManager NavigationManager
+@inject ShoppingCartState ShoppingCartState
+
+<h4 class="d-flex justify-content-between align-items-center mb-3">
+  <span class="text-primary">Your cart</span>
+  <span class="badge bg-primary rounded-pill">@ShoppingCartState.Count</span>
+</h4>
+<ul class="list-group mb-3">
+  @foreach (var product in ShoppingCartState.ShoppingCart)
+  {
+    <li class="list-group-item d-flex justify-content-between lh-sm">
+      <div class="d-flex flex-column justify-content-start">
+        <h6 class="my-0">@product.Name</h6>
+        <small class="text-muted">@product.Description</small>
+        <small class="text-secondary cursor-pointer" @onclick="() => ShoppingCartState.RemoveProduct(product)" >Remove Product</small>
+      </div>
+        <span class="text-muted ">$@product.Price</span>
+    </li>
+  }
+  <li class="list-group-item d-flex justify-content-between">
+    <span>Total (USD)</span>
+    <strong>$@ShoppingCartState.TotalPrice</strong>
+  </li>
+</ul>
